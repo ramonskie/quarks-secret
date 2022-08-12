@@ -1,7 +1,7 @@
 package environment
 
 import (
-	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc" //from https://github.com/kubernetes/client-go/issues/345
+	_ "k8s.io/client-go/plugin/pkg/client/auth" //from https://github.com/kubernetes/client-go/issues/345
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 
 	"code.cloudfoundry.org/quarks-secret/pkg/kube/operator"
