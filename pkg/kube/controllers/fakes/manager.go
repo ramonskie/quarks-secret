@@ -16,6 +16,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
+	"sigs.k8s.io/controller-runtime/pkg/config/v1alpha1"
 )
 
 type FakeManager struct {
@@ -201,6 +202,17 @@ type FakeManager struct {
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
+
+	GetControllerOptionsStub        func() v1alpha1.ControllerConfigurationSpec
+	getControllerOptionsMutex 	    sync.RWMutex
+	getControllerOptionsArgsForCall []struct {
+	}
+	getControllerOptionsReturns struct {
+		result1 v1alpha1.ControllerConfigurationSpec
+	}
+	getControllerOptionsReturnsOnCall map[int]struct {
+		result1 v1alpha1.ControllerConfigurationSpec
+	}
 }
 
 func (fake *FakeManager) Add(arg1 manager.Runnable) error {
@@ -1143,6 +1155,58 @@ func (fake *FakeManager) StartReturnsOnCall(i int, result1 error) {
 	}
 	fake.startReturnsOnCall[i] = struct {
 		result1 error
+	}{result1}
+}
+
+func (fake *FakeManager) GetControllerOptions() v1alpha1.ControllerConfigurationSpec {
+	fake.getControllerOptionsMutex.Lock()
+	ret, specificReturn := fake.getControllerOptionsReturnsOnCall[len(fake.getControllerOptionsArgsForCall)]
+	fake.getControllerOptionsArgsForCall = append(fake.getControllerOptionsArgsForCall, struct {
+	}{})
+	fake.recordInvocation("GetControllerOptions", []interface{}{})
+	fake.getControllerOptionsMutex.Unlock()
+	if fake.GetControllerOptionsStub != nil {
+		return fake.GetControllerOptionsStub()
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	fakeReturns := fake.getControllerOptionsReturns
+	return fakeReturns.result1
+}
+
+func (fake *FakeManager) GetControllerOptionsCallCount() int {
+	fake.getControllerOptionsMutex.RLock()
+	defer fake.getControllerOptionsMutex.RUnlock()
+	return len(fake.getControllerOptionsArgsForCall)
+}
+
+func (fake *FakeManager) GetControllerOptionsServerCalls(stub func() v1alpha1.ControllerConfigurationSpec) {
+	fake.getControllerOptionsMutex.Lock()
+	defer fake.getControllerOptionsMutex.Unlock()
+	fake.GetControllerOptionsStub = stub
+}
+
+func (fake *FakeManager) GetControllerOptionsReturns(result1 v1alpha1.ControllerConfigurationSpec) {
+	fake.getControllerOptionsMutex.Lock()
+	defer fake.getControllerOptionsMutex.Unlock()
+	fake.GetControllerOptionsStub = nil
+	fake.getControllerOptionsReturns = struct {
+		result1 v1alpha1.ControllerConfigurationSpec
+	}{result1}
+}
+
+func (fake *FakeManager) GetControllerOptionsReturnsOnCall(i int, result1 v1alpha1.ControllerConfigurationSpec) {
+	fake.getControllerOptionsMutex.Lock()
+	defer fake.getControllerOptionsMutex.Unlock()
+	fake.GetControllerOptionsStub = nil
+	if fake.getControllerOptionsReturnsOnCall == nil {
+		fake.getControllerOptionsReturnsOnCall = make(map[int]struct {
+			result1 v1alpha1.ControllerConfigurationSpec
+		})
+	}
+	fake.getControllerOptionsReturnsOnCall[i] = struct {
+		result1 v1alpha1.ControllerConfigurationSpec
 	}{result1}
 }
 
