@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z ${DOCKER_IMAGE_ORG+x} ]; then
-  DOCKER_IMAGE_ORG="cfcontainerization"
+  DOCKER_IMAGE_ORG="foundationalinfrastructure"
   export DOCKER_IMAGE_ORG
 fi
 
